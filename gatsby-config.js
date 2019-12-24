@@ -5,10 +5,11 @@
  */
 
 module.exports = {
-  /* Your site config here */
   plugins: [
-    `gatsby-plugin-netlify-cms`,
+    `gatsby-plugin-typescript`,
+    `gatsby-plugin-material-ui`,
     `gatsby-transformer-remark`,
+    `gatsby-plugin-netlify-cms`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
