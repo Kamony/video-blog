@@ -4,17 +4,15 @@ backend:
 media_folder: static/assets
 public_folder: assets
 collections:
-  - name: meta
-    label: Meta
-    files:
-      - name: tags
-        label: Tags
-        file: tags/tags.yaml
-        fields:
-          - name: tags
-            label: Tags
-            widget: list
-            fields: [{ name: tag, label: Tag }]
+  - name: tag
+    label: Tag
+    create: true
+    identifier_field: tag
+    folder: tags
+    fields:
+      - name: tag
+        label: Tag
+        widget: string
   - name: blog
     label: Blog
     folder: blog
@@ -23,14 +21,13 @@ collections:
       - { name: path, label: Path }
       - { name: date, label: Date, widget: datetime }
       - { name: title, label: Title }
-      - { name: featured, label: Featured?, widget: boolean }
+      - { name: featured, label: Featured, widget: boolean, default: false }
       - name: tags,
         label: Tags
         widget: relation
-        collection: meta
-        entry: tags
-        searchFields: ['tags']
-        multiselect: true
+        collection: tag
+        searchFields: ['tag']
+        valueField: tag
         multiple: true
       - { name: video, label: Video }
       - { name: body, label: Body, widget: markdown }
