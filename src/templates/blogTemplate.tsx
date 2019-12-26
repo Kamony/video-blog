@@ -6,11 +6,16 @@ import { Button, useTheme } from "@material-ui/core"
 export default function Template({ data }) {
   const { markdownRemark } = data
   const { frontmatter, html } = markdownRemark
-  const { colors } = useTheme()
-  console.log(colors)
+  const theme = useTheme()
+  console.log(theme)
   return (
     <div className="blog-post-container">
       <Button variant="contained" color="primary">
+        <Link to={"/"} style={{ textDecoration: "none" }}>
+          Back
+        </Link>
+      </Button>
+      <Button variant="contained" color="secondary">
         <Link to={"/"} style={{ textDecoration: "none" }}>
           Back
         </Link>
