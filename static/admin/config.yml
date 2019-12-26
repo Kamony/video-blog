@@ -6,11 +6,10 @@ public_folder: assets
 collections:
   - name: meta
     label: Meta
-    folder: tags
     files:
       - name: tags
         label: Tags
-        file: data/tags.yaml
+        file: tags/tags.yaml
         fields:
           - name: tags
             label: Tags
