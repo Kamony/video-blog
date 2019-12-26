@@ -329,7 +329,9 @@ type MarkdownRemarkFrontmatter {
         #Configures the locale Moment.js will use to format the date.
         locale: String
     ): Date
+    featured: Boolean
     path: String
+    tags_: [String]
     title: String
     video: String
 }
@@ -684,7 +686,9 @@ enum FileFieldsEnum {
     childMarkdownRemark___excerptAst @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
     childMarkdownRemark___fileAbsolutePath @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
     childMarkdownRemark___frontmatter___date
+    childMarkdownRemark___frontmatter___featured
     childMarkdownRemark___frontmatter___path
+    childMarkdownRemark___frontmatter___tags_
     childMarkdownRemark___frontmatter___title
     childMarkdownRemark___frontmatter___video
     childMarkdownRemark___headings @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
@@ -891,7 +895,9 @@ enum MarkdownRemarkFieldsEnum {
     excerptAst @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
     fileAbsolutePath @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
     frontmatter___date
+    frontmatter___featured
     frontmatter___path
+    frontmatter___tags_
     frontmatter___title
     frontmatter___video
     headings @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
@@ -1509,7 +1515,9 @@ input MarkdownRemarkFilterInput {
 
 input MarkdownRemarkFrontmatterFilterInput {
     date: DateQueryOperatorInput
+    featured: BooleanQueryOperatorInput
     path: StringQueryOperatorInput
+    tags_: StringQueryOperatorInput
     title: StringQueryOperatorInput
     video: StringQueryOperatorInput
 }

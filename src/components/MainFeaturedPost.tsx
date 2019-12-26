@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography"
 import Grid from "@material-ui/core/Grid"
 import { Button } from "@material-ui/core"
 import { Link } from "./Link"
+import { TagsList } from "./TagsList"
 
 const useStyles = makeStyles(theme => ({
   mainFeaturedPost: {
@@ -33,6 +34,9 @@ const useStyles = makeStyles(theme => ({
       paddingRight: 0,
     },
   },
+  tags: {
+    paddingBottom: theme.spacing(2),
+  },
 }))
 
 type Props = {
@@ -41,6 +45,7 @@ type Props = {
     description: string
     image: string
     imageTitle: string
+    tags?: string[]
   }
 }
 
@@ -65,6 +70,9 @@ export default function MainFeaturedPost(props: Props) {
             >
               {post.title}
             </Typography>
+            {props.post.tags && (
+              <TagsList tags={props.post.tags} className={classes.tags} />
+            )}
             <Typography variant="h5" color="inherit" paragraph>
               {post.description}
             </Typography>

@@ -1,41 +1,48 @@
 import * as React from "react"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
+import {
+  Breadcrumbs,
+  Container,
+  Divider,
+  makeStyles,
+  Typography,
+} from "@material-ui/core"
+import { TagsList } from "../components/TagsList"
+import { Link } from "../components/Link"
 import Video from "../components/video"
-import { Button, useTheme } from "@material-ui/core"
+const useStyles = makeStyles(theme => ({
+  container: {
+    marginTop: theme.spacing(3),
+  },
+}))
 
 export default function Template({ data }) {
   const { markdownRemark } = data
   const { frontmatter, html } = markdownRemark
-  const theme = useTheme()
-  console.log(theme)
+  const classes = useStyles()
   return (
-    <div className="blog-post-container">
-      <Button variant="contained" color="primary">
-        <Link to={"/"} style={{ textDecoration: "none" }}>
-          Back
-        </Link>
-      </Button>
-      <Button variant="contained" color="secondary">
-        <Link to={"/"} style={{ textDecoration: "none" }}>
-          Back
-        </Link>
-      </Button>
-      <Link to={"/"}>Back</Link>
-      <div className="blog-post">
-        <h1 style={{ color: "red" }}>{frontmatter.title}</h1>
-        <h2>{frontmatter.date}</h2>
-        <div
-          className="blog-post-content"
+    <main className={classes.container}>
+      <Breadcrumbs maxItems={2} aria-label="breadcrumb">
+        <Link to={"/"}>Home</Link>
+        <Typography color="textPrimary">{frontmatter.title}</Typography>
+      </Breadcrumbs>
+      <Container className={classes.container}>
+        <Typography variant="h2" align={"center"}>
+          {frontmatter.title}
+        </Typography>
+        <Typography variant="subtitle1" align={"center"}>
+          {frontmatter.date.toLocaleString()}
+        </Typography>
+        {frontmatter.tags_ && <TagsList tags={frontmatter.tags_} />}
+        <Typography
+          variant="subtitle1"
+          gutterBottom
+          paragraph
           dangerouslySetInnerHTML={{ __html: html }}
         />
-        <div style={{ maxHeight: 500 }}>
-          <Video
-            videoSrcURL={frontmatter.video}
-            videoTitle={"testovaci video"}
-          />
-        </div>
-      </div>
-    </div>
+        <Video videoSrcURL={frontmatter.video} videoTitle={"testovaci video"} />
+      </Container>
+    </main>
   )
 }
 
@@ -48,6 +55,7 @@ export const pageQuery = graphql`
         path
         title
         video
+        tags_
       }
     }
   }
