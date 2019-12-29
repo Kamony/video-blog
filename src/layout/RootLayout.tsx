@@ -1,6 +1,6 @@
 import * as React from "react"
 import CssBaseline from "@material-ui/core/CssBaseline"
-import { ThemeProvider } from "@material-ui/core/styles"
+import { makeStyles, ThemeProvider } from "@material-ui/core/styles"
 import theme from "../theme/"
 import Header from "../components/Header"
 import Footer from "../components/Footer"
@@ -19,13 +19,32 @@ type Props = {
   children: React.ReactNode
 }
 
+const useStyles = makeStyles(theme => ({
+  container: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+  },
+}))
+
 export default function TopLayout(props: Props) {
+  const classes = useStyles()
+  const [isDarkMode, setDarkMode] = React.useState(false)
+
+  const toggleDarkMode = () => {
+    setDarkMode(!isDarkMode)
+  }
+
   return (
     <React.Fragment>
-      <ThemeProvider theme={theme(false)}>
+      <ThemeProvider theme={theme(isDarkMode)}>
         <CssBaseline />
-        <Container maxWidth="lg">
-          <Header title="Video Learning Platform" sections={sections} />
+        <Header
+          title="Video Learning Platform"
+          sections={sections}
+          isDarkMode={isDarkMode}
+          onChangeTheme={toggleDarkMode}
+        />
+        <Container maxWidth="lg" className={classes.container}>
           {props.children}
         </Container>
         <Footer

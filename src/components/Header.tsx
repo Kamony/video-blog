@@ -3,9 +3,13 @@ import { makeStyles } from "@material-ui/core/styles"
 import Toolbar from "@material-ui/core/Toolbar"
 import Button from "@material-ui/core/Button"
 import IconButton from "@material-ui/core/IconButton"
-// import SearchIcon from "@material-ui/icons/Search"
+import {
+  Brightness7 as LightMode,
+  Brightness2 as DarkMode,
+} from "@material-ui/icons"
 import Typography from "@material-ui/core/Typography"
 import Link from "@material-ui/core/Link"
+import { Paper } from "@material-ui/core"
 
 const useStyles = makeStyles(theme => ({
   toolbar: {
@@ -22,6 +26,12 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1),
     flexShrink: 0,
   },
+  container: {
+    position: "sticky",
+    top: 0,
+    zIndex: 1000,
+    // backgroundColor: theme.palette.background.default,
+  },
 }))
 
 type Section = {
@@ -32,6 +42,8 @@ type Section = {
 type Props = {
   sections: Section[]
   title: string
+  onChangeTheme: () => void
+  isDarkMode: boolean
 }
 
 export default function Header(props: Props) {
@@ -39,7 +51,7 @@ export default function Header(props: Props) {
   const { sections, title } = props
 
   return (
-    <React.Fragment>
+    <Paper variant="outlined" square className={classes.container}>
       <Toolbar className={classes.toolbar}>
         <Typography
           component="h2"
@@ -51,10 +63,9 @@ export default function Header(props: Props) {
         >
           {title}
         </Typography>
-        <IconButton>{/*<SearchIcon />*/}</IconButton>
-        <Button variant="outlined" size="small">
-          Sign up
-        </Button>
+        <IconButton onClick={props.onChangeTheme}>
+          {props.isDarkMode ? <DarkMode /> : <LightMode />}
+        </IconButton>
       </Toolbar>
       <Toolbar
         component="nav"
@@ -74,6 +85,6 @@ export default function Header(props: Props) {
           </Link>
         ))}
       </Toolbar>
-    </React.Fragment>
+    </Paper>
   )
 }
