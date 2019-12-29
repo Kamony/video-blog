@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core"
 import { TagsList } from "../components/TagsList"
 import { Link } from "../components/Link"
-import Video from "../components/Video"
+import { Video } from "../components/Video"
 
 const useStyles = makeStyles(theme => ({
   container: {

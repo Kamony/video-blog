@@ -1,6 +1,11 @@
 import * as React from "react"
 
-const Video = ({ videoSrcURL, videoTitle, ...props }) => (
+type Props = {
+  videoSrcURL: string
+  videoTitle: string
+}
+
+export const Video = ({ videoSrcURL, videoTitle }: Props) => (
   <div
     className="video"
     style={{
@@ -26,4 +31,3 @@ const Video = ({ videoSrcURL, videoTitle, ...props }) => (
     />
   </div>
 )
-export default Video
