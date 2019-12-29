@@ -9,6 +9,7 @@ import {
 import Typography from "@material-ui/core/Typography"
 import Link from "@material-ui/core/Link"
 import { Paper } from "@material-ui/core"
+import { Search } from "./Search"
 
 const useStyles = makeStyles(theme => ({
   toolbar: {
@@ -62,6 +63,7 @@ export default function Header(props: Props) {
         >
           {title}
         </Typography>
+        <Search />
         <IconButton onClick={props.onChangeTheme}>
           {props.isDarkMode ? <DarkMode /> : <LightMode />}
         </IconButton>
