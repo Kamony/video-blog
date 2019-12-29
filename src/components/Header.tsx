@@ -1,7 +1,6 @@
 import * as React from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import Toolbar from "@material-ui/core/Toolbar"
-import Button from "@material-ui/core/Button"
 import IconButton from "@material-ui/core/IconButton"
 import {
   Brightness7 as LightMode,
@@ -30,7 +29,7 @@ const useStyles = makeStyles(theme => ({
     position: "sticky",
     top: 0,
     zIndex: 1000,
-    // backgroundColor: theme.palette.background.default,
+    transition: "all 0.5s ease",
   },
 }))
 

@@ -25,7 +25,7 @@ const social = [
 
 const useStyles = makeStyles(theme => ({
   mainGrid: {
-    marginTop: theme.spacing(3),
+    paddingTop: theme.spacing(3),
   },
 }))
 

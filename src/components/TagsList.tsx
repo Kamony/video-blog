@@ -11,8 +11,8 @@ export const TagsList: React.FC<Props> = (props: Props) => {
   return (
     <Grid container spacing={1} className={props.className}>
       {props.tags.map(tag => (
-        <Grid item>
-          <Chip key={tag} label={tag} color={"secondary"} />
+        <Grid item key={tag}>
+          <Chip label={tag} color={"secondary"} />
         </Grid>
       ))}
     </Grid>

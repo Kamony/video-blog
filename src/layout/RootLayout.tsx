@@ -21,8 +21,8 @@ type Props = {
 
 const useStyles = makeStyles(theme => ({
   container: {
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(3),
   },
 }))
 
