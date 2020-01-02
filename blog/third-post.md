@@ -2,6 +2,9 @@
 path: /third-post
 date: 2019-12-23T15:46:25.258Z
 title: Third post
+lead: >-
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+  incididunt ut labore et dolore magna aliqua.
 featured: true
 'tags,':
   - tag3

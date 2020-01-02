@@ -1,20 +1,11 @@
 import * as React from "react"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
 import { Grid, makeStyles } from "@material-ui/core"
 import FeaturedPost from "../components/FeaturedPost"
 import MainFeaturedPost from "../components/MainFeaturedPost"
 import { About } from "../components/About"
 import Sidebar from "../components/SideBar"
-import { YouTube, Twitter, Facebook, Instagram } from "@material-ui/icons"
-const mainFeaturedPost = {
-  title: "Title of a longer featured blog post",
-  description:
-    "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
-  image: "https://source.unsplash.com/random",
-  imageTitle: "main image description",
-  date: "13.12.2018",
-  tags: ["free", "biology"],
-}
+import { Facebook, Instagram, Twitter, YouTube } from "@material-ui/icons"
 
 const social = [
   { name: "Youtube", icon: YouTube, href: "https://youtube.com" },
@@ -31,14 +22,41 @@ const useStyles = makeStyles(theme => ({
 
 export default props => {
   const classes = useStyles()
-
+  console.log(props)
   return (
     <>
       <main>
-        <MainFeaturedPost post={mainFeaturedPost} />
-        <Grid container spacing={4}>
-          <FeaturedPost post={mainFeaturedPost} />
-          <FeaturedPost post={mainFeaturedPost} />
+        {props.data.allMarkdownRemark.edges.length > 0 && (
+          <MainFeaturedPost
+            post={{
+              title:
+                props.data.allMarkdownRemark.edges[0].node.frontmatter.title,
+              date: new Date(
+                props.data.allMarkdownRemark.edges[0].node.frontmatter.date
+              ).toLocaleDateString(),
+              tags:
+                props.data.allMarkdownRemark.edges[0].node.frontmatter.tags_,
+              description:
+                props.data.allMarkdownRemark.edges[0].node.frontmatter.lead,
+              image: "https://source.unsplash.com/random",
+              imageTitle: "main image description",
+              path: props.data.allMarkdownRemark.edges[0].node.frontmatter.path,
+            }}
+          />
+        )}
+        <Grid container spacing={4} justify="space-around">
+          {props.data.allMarkdownRemark.edges.slice(1).map(post => (
+            <FeaturedPost
+              post={{
+                title: post.node.frontmatter.title,
+                date: new Date(post.node.frontmatter.date).toLocaleDateString(),
+                description: post.node.frontmatter.lead,
+                image: "https://source.unsplash.com/random",
+                imageTitle: "main image description",
+                path: post.node.frontmatter.path,
+              }}
+            />
+          ))}
         </Grid>
         <Grid container spacing={5} className={classes.mainGrid}>
           <About />
@@ -50,15 +68,6 @@ export default props => {
             social={social}
           />
         </Grid>
-        {/*<ul>*/}
-        {/*  {props.data.allMarkdownRemark.edges.map(edge => (*/}
-        {/*    <li key={edge.node.id}>*/}
-        {/*      <Link to={edge.node.frontmatter.path}>*/}
-        {/*        {edge.node.frontmatter.title}*/}
-        {/*      </Link>*/}
-        {/*    </li>*/}
-        {/*  ))}*/}
-        {/*</ul>*/}
       </main>
     </>
   )
@@ -66,7 +75,10 @@ export default props => {
 
 export const pageQuery = graphql`
   query {
-    allMarkdownRemark {
+    allMarkdownRemark(
+      filter: { frontmatter: { featured: { eq: true } } }
+      sort: { fields: frontmatter___date, order: DESC }
+    ) {
       edges {
         node {
           id
@@ -74,6 +86,7 @@ export const pageQuery = graphql`
             title
             path
             date
+            lead
             tags_
           }
         }

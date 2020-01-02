@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles"
 import Paper from "@material-ui/core/Paper"
 import Typography from "@material-ui/core/Typography"
 import Grid from "@material-ui/core/Grid"
-import { Button } from "@material-ui/core"
+import { Box, Button } from "@material-ui/core"
 import { Link } from "./Link"
 import { TagsList } from "./TagsList"
 
@@ -42,10 +42,12 @@ const useStyles = makeStyles(theme => ({
 type Props = {
   post: {
     title: string
+    date: string
     description: string
     image: string
     imageTitle: string
     tags?: string[]
+    path: string
   }
 }
 
@@ -62,12 +64,10 @@ export default function MainFeaturedPost(props: Props) {
       <Grid container>
         <Grid item md={6}>
           <div className={classes.mainFeaturedPostContent}>
-            <Typography
-              component="h1"
-              variant="h3"
-              color="inherit"
-              gutterBottom
-            >
+            <Box px={0.5}>
+              <Typography variant="subtitle1">{post.date}</Typography>
+            </Box>
+            <Typography component="h1" variant="h3" color="inherit">
               {post.title}
             </Typography>
             {props.post.tags && (
@@ -76,7 +76,7 @@ export default function MainFeaturedPost(props: Props) {
             <Typography variant="h5" color="inherit" paragraph>
               {post.description}
             </Typography>
-            <Link to={"test"}>
+            <Link to={props.post.path}>
               <Button variant={"contained"} color={"primary"}>
                 Continue reading...
               </Button>

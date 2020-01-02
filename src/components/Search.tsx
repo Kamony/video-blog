@@ -2,6 +2,7 @@ import * as React from "react"
 import { graphql, StaticQuery } from "gatsby"
 import { Index } from "elasticlunr"
 import {
+  ClickAwayListener,
   fade,
   IconButton,
   InputBase,
@@ -30,6 +31,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
     marginLeft: 0,
+    marginRight: theme.spacing(1),
     width: "100%",
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(1),
@@ -47,27 +49,27 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   clearIcon: {
     height: "100%",
-    pointerEvents: "none",
   },
   inputRoot: {
     color: "inherit",
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 7),
-    transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("sm")]: {
       width: 120,
-      "&:focus": {
-        width: 200,
-      },
     },
   },
   searchResultContainer: {
     border: `1px solid ${theme.palette.divider}`,
-    padding: theme.spacing(2),
     borderRadius: theme.shape.borderRadius,
     backgroundColor: theme.palette.common.white,
+  },
+  searchResultLink: {
+    padding: theme.spacing(2),
+    "&:hover": {
+      backgroundColor: theme.palette.grey.A100,
+    },
   },
 }))
 
@@ -100,7 +102,10 @@ const SearchDry = (props: Props) => {
     setResults([])
   }
 
-  console.log("results: ", results)
+  const handleClickAway = () => {
+    clearQuery()
+  }
+
   return (
     <div>
       <div className={classes.search} ref={anchorEl}>
@@ -129,20 +134,31 @@ const SearchDry = (props: Props) => {
           <CloseIcon />
         </IconButton>
       </div>
-      <Popper
-        open={searchBarVisible}
-        anchorEl={anchorEl.current}
-        placement="bottom"
-        style={{ zIndex: 1050 }}
-      >
-        <div className={classes.searchResultContainer}>
-          {results.map(result => (
-            <Link to={result.path} key={result.id}>
-              <Typography>{result.title}</Typography>
-            </Link>
-          ))}
-        </div>
-      </Popper>
+      <ClickAwayListener onClickAway={handleClickAway}>
+        <Popper
+          open={searchBarVisible}
+          anchorEl={anchorEl.current}
+          placement="bottom"
+          style={{ zIndex: 1050, width: 180 }}
+        >
+          <div className={classes.searchResultContainer}>
+            {results.map(result => (
+              <div
+                className={classes.searchResultLink}
+                key={result.id}
+                onClick={clearQuery}
+              >
+                <Link to={result.path}>
+                  <Typography color={"textPrimary"}>{result.title}</Typography>
+                  <Typography color={"textSecondary"}>
+                    {new Date(result.date).toLocaleDateString()}
+                  </Typography>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </Popper>
+      </ClickAwayListener>
     </div>
   )
 }

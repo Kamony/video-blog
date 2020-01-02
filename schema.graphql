@@ -330,6 +330,7 @@ type MarkdownRemarkFrontmatter {
         locale: String
     ): Date
     featured: Boolean
+    lead: String
     path: String
     tags_: [String]
     title: String
@@ -723,6 +724,7 @@ enum FileFieldsEnum {
     childMarkdownRemark___fileAbsolutePath @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
     childMarkdownRemark___frontmatter___date
     childMarkdownRemark___frontmatter___featured
+    childMarkdownRemark___frontmatter___lead
     childMarkdownRemark___frontmatter___path
     childMarkdownRemark___frontmatter___tags_
     childMarkdownRemark___frontmatter___title
@@ -932,6 +934,7 @@ enum MarkdownRemarkFieldsEnum {
     fileAbsolutePath @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
     frontmatter___date
     frontmatter___featured
+    frontmatter___lead
     frontmatter___path
     frontmatter___tags_
     frontmatter___title
@@ -1645,6 +1648,7 @@ input MarkdownRemarkFilterInput {
 input MarkdownRemarkFrontmatterFilterInput {
     date: DateQueryOperatorInput
     featured: BooleanQueryOperatorInput
+    lead: StringQueryOperatorInput
     path: StringQueryOperatorInput
     tags_: StringQueryOperatorInput
     title: StringQueryOperatorInput

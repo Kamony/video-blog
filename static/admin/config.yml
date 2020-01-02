@@ -21,6 +21,7 @@ collections:
       - { name: path, label: Path }
       - { name: date, label: Date, widget: datetime }
       - { name: title, label: Title }
+      - { name: lead, label: Lead }
       - { name: featured, label: Featured, widget: boolean, default: false }
       - name: tags,
         label: Tags

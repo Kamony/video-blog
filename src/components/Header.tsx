@@ -21,6 +21,7 @@ const useStyles = makeStyles(theme => ({
   toolbarSecondary: {
     justifyContent: "space-between",
     overflowX: "auto",
+    transition: "all 0.5s ease",
   },
   toolbarLink: {
     padding: theme.spacing(1),
@@ -51,7 +52,12 @@ export default function Header(props: Props) {
   const { sections, title } = props
 
   return (
-    <Paper variant="outlined" square className={classes.container}>
+    <Paper
+      variant="outlined"
+      square
+      className={classes.container}
+      elevation={10}
+    >
       <Toolbar className={classes.toolbar}>
         <Typography
           component="h2"
