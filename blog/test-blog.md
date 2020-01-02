@@ -1,7 +1,7 @@
 ---
-path: /test-blog
+path: /first-post
 date: 2019-12-23T13:26:06.576Z
-title: Test blog
+title: First post
 featured: true
 'tags,':
   - tag1
