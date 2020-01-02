@@ -2,6 +2,9 @@
 path: /first-post
 date: 2019-12-23T13:26:06.576Z
 title: First post
+lead: >-
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+  incididunt ut labore et dolore magna aliqua.
 featured: true
 'tags,':
   - tag1
