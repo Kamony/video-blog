@@ -2,7 +2,9 @@
 path: /fifth-post
 date: 2020-01-02T13:45:05.669Z
 title: Fifth Post
-lead: bla bla bla
+lead: >-
+  But I must explain to you how all this mistaken idea of denouncing pleasure
+  and praising pain was born.
 featured: true
 'tags,':
   - tag1
