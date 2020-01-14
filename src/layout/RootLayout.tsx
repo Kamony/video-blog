@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function TopLayout(props: Props) {
   const classes = useStyles()
-  const [isDarkMode, setDarkMode] = React.useState(false)
+  const [isDarkMode, setDarkMode] = React.useState(true)
   const [renderer, setRenderer] = React.useState(false)
 
   React.useEffect(() => {

@@ -21,7 +21,6 @@ const useStyles = makeStyles(theme => ({
   toolbarSecondary: {
     justifyContent: "space-between",
     overflowX: "auto",
-    transition: "all 0.5s ease",
   },
   toolbarLink: {
     padding: theme.spacing(1),
@@ -31,7 +30,8 @@ const useStyles = makeStyles(theme => ({
     position: "sticky",
     top: 0,
     zIndex: 1000,
-    transition: "all 0.5s ease",
+    opacity: 0.85,
+    backdropFilter: "blur(20px)",
   },
 }))
 

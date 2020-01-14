@@ -47,6 +47,7 @@ export default props => {
         <Grid container spacing={4} justify="space-around">
           {props.data.allMarkdownRemark.edges.slice(1).map(post => (
             <FeaturedPost
+              key={post.node.id}
               post={{
                 title: post.node.frontmatter.title,
                 date: new Date(post.node.frontmatter.date).toLocaleDateString(),

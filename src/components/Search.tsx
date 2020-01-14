@@ -3,6 +3,7 @@ import { graphql, StaticQuery } from "gatsby"
 import { Index } from "elasticlunr"
 import {
   ClickAwayListener,
+  createStyles,
   fade,
   IconButton,
   InputBase,
@@ -19,59 +20,65 @@ type Props = {
   searchIndex: any
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
-  search: {
-    display: "flex",
-    alignItems: "center",
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    border: `1px solid ${theme.palette.divider}`,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    search: {
+      display: "flex",
+      alignItems: "center",
+      position: "relative",
+      borderRadius: theme.shape.borderRadius,
+      border: `1px solid ${theme.palette.divider}`,
+      backgroundColor: fade(theme.palette.common.white, 0.15),
+      "&:hover": {
+        backgroundColor: fade(theme.palette.common.white, 0.25),
+      },
+      marginLeft: 0,
+      marginRight: theme.spacing(1),
+      width: "100%",
+      [theme.breakpoints.up("sm")]: {
+        marginLeft: theme.spacing(1),
+        width: "auto",
+      },
     },
-    marginLeft: 0,
-    marginRight: theme.spacing(1),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(1),
-      width: "auto",
+    searchIcon: {
+      width: theme.spacing(5),
+      height: "100%",
+      position: "absolute",
+      pointerEvents: "none",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
     },
-  },
-  searchIcon: {
-    width: theme.spacing(7),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  clearIcon: {
-    height: "100%",
-  },
-  inputRoot: {
-    color: "inherit",
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 7),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: 120,
+    clearIcon: {
+      height: "100%",
     },
-  },
-  searchResultContainer: {
-    border: `1px solid ${theme.palette.divider}`,
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: theme.palette.common.white,
-  },
-  searchResultLink: {
-    padding: theme.spacing(2),
-    "&:hover": {
-      backgroundColor: theme.palette.grey.A100,
+    inputRoot: {
+      color: "inherit",
     },
-  },
-}))
+    inputInput: {
+      padding: theme.spacing(1, 1, 1, 5),
+      width: 60,
+      [theme.breakpoints.up("sm")]: {
+        width: 120,
+      },
+    },
+    searchResultContainer: {
+      border: `1px solid ${theme.palette.divider}`,
+      borderRadius: theme.shape.borderRadius,
+      backgroundColor: theme.palette.background.paper,
+    },
+    searchResultLink: {
+      padding: theme.spacing(2),
+      "&:hover": {
+        backgroundColor: fade(theme.palette.common.black, 0.25),
+      },
+    },
+    popper: {
+      zIndex: 1050,
+      width: 180,
+    },
+  })
+)
 
 const SearchDry = (props: Props) => {
   const [query, setQuery] = React.useState(``)
@@ -139,7 +146,7 @@ const SearchDry = (props: Props) => {
           open={searchBarVisible}
           anchorEl={anchorEl.current}
           placement="bottom"
-          style={{ zIndex: 1050, width: 180 }}
+          className={classes.popper}
         >
           <div className={classes.searchResultContainer}>
             {results.map(result => (
