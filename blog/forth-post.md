@@ -7,6 +7,7 @@ lead: >-
   and praising pain was born and I will give you a complete account of the
   system
 featured: true
+'section,': Other
 'tags,':
   - tag1
   - tag3
