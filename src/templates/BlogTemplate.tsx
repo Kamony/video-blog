@@ -3,7 +3,6 @@ import { graphql } from "gatsby"
 import {
   Breadcrumbs,
   Container,
-  IconButton,
   makeStyles,
   Typography,
 } from "@material-ui/core"
@@ -11,6 +10,7 @@ import { TagsList } from "../components/TagsList"
 import { Link } from "../components/Link"
 import { Video } from "../components/Video"
 import { Home } from "@material-ui/icons"
+
 const useStyles = makeStyles(theme => ({
   container: {
     marginTop: theme.spacing(2),

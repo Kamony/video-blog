@@ -10,6 +10,7 @@ import Typography from "@material-ui/core/Typography"
 import Link from "@material-ui/core/Link"
 import { Paper } from "@material-ui/core"
 import { Search } from "./Search"
+import { graphql, useStaticQuery } from "gatsby"
 
 const useStyles = makeStyles(theme => ({
   toolbar: {
@@ -35,13 +36,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-type Section = {
-  title: string
-  url: string
-}
-
 type Props = {
-  sections: Section[]
   title: string
   onChangeTheme: () => void
   isDarkMode: boolean
@@ -49,8 +44,18 @@ type Props = {
 
 export default function Header(props: Props) {
   const classes = useStyles()
-  const { sections, title } = props
-
+  const { title } = props
+  // const data = useStaticQuery(graphql`
+  //   query HeaderQuery {
+  //       allMarkdownRemark {
+  //           edges {
+  //               node {
+  //
+  //               }
+  //           }
+  //       }
+  //   }
+  // `)
   return (
     <Paper
       variant="outlined"

@@ -45,7 +45,6 @@ export default function TopLayout(props: Props) {
         <CssBaseline />
         <Header
           title="Video Learning Platform"
-          sections={sections}
           isDarkMode={isDarkMode}
           onChangeTheme={toggleDarkMode}
         />

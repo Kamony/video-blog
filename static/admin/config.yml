@@ -8,14 +8,30 @@ collections:
     label: Tag
     create: true
     identifier_field: tag
-    folder: tags
+    folder: model/tags
     fields:
       - name: tag
         label: Tag
         widget: string
+  - name: section
+    label: Section
+    create: true
+    identifier_field: section
+    folder: model/sections
+    fields:
+      - name: section
+        label: Section
+        widget: string
+      - name: slug
+        label: Slug
+        widget: string
+      - name: color
+        label: Color
+        widget: string
+        required: false
   - name: blog
     label: Blog
-    folder: blog
+    folder: model/blog
     create: true
     fields:
       - { name: path, label: Path }
@@ -23,6 +39,13 @@ collections:
       - { name: title, label: Title }
       - { name: lead, label: Lead }
       - { name: featured, label: Featured, widget: boolean, default: false }
+      - name: section,
+        label: Section
+        widget: relation
+        collection: section
+        searchFields: ['section']
+        valueField: section
+        multiple: false
       - name: tags,
         label: Tags
         widget: relation

@@ -6,15 +6,22 @@
 
 module.exports = {
   plugins: [
-    `gatsby-plugin-material-ui`,
     `gatsby-plugin-typescript`,
+    `gatsby-plugin-material-ui`,
     `gatsby-transformer-remark`,
     `gatsby-plugin-netlify-cms`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `markdown-pages`,
-        path: `${__dirname}/blog`,
+        path: `${__dirname}/model/blog`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `markdown-sections`,
+        path: `${__dirname}/model/sections`,
       },
     },
     {
