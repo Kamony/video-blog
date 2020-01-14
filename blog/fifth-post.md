@@ -6,6 +6,7 @@ lead: >-
   But I must explain to you how all this mistaken idea of denouncing pleasure
   and praising pain was born.
 featured: true
+'section,': Math
 'tags,':
   - tag1
   - tag3

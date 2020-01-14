@@ -6,6 +6,7 @@ lead: >-
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
   incididunt ut labore et dolore magna aliqua.
 featured: true
+'section,': Math
 'tags,':
   - tag1
 video: 'https://www.youtube.com/embed/xj-6hC5GFfI'
