@@ -6,8 +6,8 @@
 
 module.exports = {
   plugins: [
-    `gatsby-plugin-typescript`,
     `gatsby-plugin-material-ui`,
+    `gatsby-plugin-typescript`,
     `gatsby-transformer-remark`,
     `gatsby-plugin-netlify-cms`,
     {

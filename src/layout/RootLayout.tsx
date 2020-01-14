@@ -29,13 +29,18 @@ const useStyles = makeStyles(theme => ({
 export default function TopLayout(props: Props) {
   const classes = useStyles()
   const [isDarkMode, setDarkMode] = React.useState(false)
+  const [renderer, setRenderer] = React.useState(false)
+
+  React.useEffect(() => {
+    setRenderer(true)
+  }, [])
 
   const toggleDarkMode = () => {
     setDarkMode(!isDarkMode)
   }
 
   return (
-    <React.Fragment>
+    renderer && (
       <ThemeProvider theme={theme(isDarkMode)}>
         <CssBaseline />
         <Header
@@ -52,6 +57,6 @@ export default function TopLayout(props: Props) {
           description="Something here to give the footer a purpose!"
         />
       </ThemeProvider>
-    </React.Fragment>
+    )
   )
 }
