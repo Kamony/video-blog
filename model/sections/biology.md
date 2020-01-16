@@ -1,6 +1,5 @@
 ---
 section: Biology
-slug: /biology
 color: '#03CEA4'
 description: >-
   Lorem Ipsum is simply dummy text of the printing and typesetting industry.

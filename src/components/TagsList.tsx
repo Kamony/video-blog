@@ -5,6 +5,7 @@ import { Chip } from "@material-ui/core"
 type Props = {
   tags: string[]
   className?: string
+  small?: boolean
 }
 
 export const TagsList: React.FC<Props> = (props: Props) => {
@@ -12,7 +13,11 @@ export const TagsList: React.FC<Props> = (props: Props) => {
     <Grid container spacing={1} className={props.className}>
       {props.tags.map(tag => (
         <Grid item key={tag}>
-          <Chip label={tag} color={"secondary"} />
+          <Chip
+            size={props.small ? "small" : "medium"}
+            label={tag}
+            color={"secondary"}
+          />
         </Grid>
       ))}
     </Grid>

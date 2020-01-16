@@ -2,19 +2,21 @@ import * as React from "react"
 import { graphql, StaticQuery } from "gatsby"
 import { Index } from "elasticlunr"
 import {
+  Box,
+  Chip,
   ClickAwayListener,
   createStyles,
   fade,
   IconButton,
   InputBase,
   makeStyles,
-  Popover,
   Popper,
   Theme,
   Typography,
 } from "@material-ui/core"
 import { Search as SearchIcon, Close as CloseIcon } from "@material-ui/icons"
 import { Link } from "./Link"
+import { TagsList } from "./TagsList"
 
 type Props = {
   searchIndex: any
@@ -75,7 +77,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     popper: {
       zIndex: 1050,
-      width: 180,
+      minWidth: 180,
+      maxWidth: "80%",
+      maxHeight: "50%",
+      overflow: "scroll",
     },
   })
 )
@@ -86,7 +91,7 @@ const SearchDry = (props: Props) => {
   const [index, setIndex] = React.useState()
   const [searchBarVisible, setSearchBarVisible] = React.useState(false)
   const anchorEl = React.useRef(null)
-
+  console.log(props)
   const classes = useStyles()
 
   React.useEffect(() => {
@@ -149,20 +154,31 @@ const SearchDry = (props: Props) => {
           className={classes.popper}
         >
           <div className={classes.searchResultContainer}>
-            {results.map(result => (
-              <div
-                className={classes.searchResultLink}
-                key={result.id}
-                onClick={clearQuery}
-              >
-                <Link to={result.path}>
-                  <Typography color={"textPrimary"}>{result.title}</Typography>
-                  <Typography color={"textSecondary"}>
-                    {new Date(result.date).toLocaleDateString()}
-                  </Typography>
-                </Link>
-              </div>
-            ))}
+            {results.map(result => {
+              console.log("search result: ", result)
+              return (
+                <div
+                  className={classes.searchResultLink}
+                  key={result.id}
+                  onClick={clearQuery}
+                >
+                  <Link to={result.path}>
+                    <Typography color={"textPrimary"}>
+                      {result.title}
+                    </Typography>
+                    <Typography variant={"caption"} color={"textSecondary"}>
+                      {new Date(result.date).toLocaleDateString()}
+                    </Typography>
+                    <Box pb={0.5}>
+                      <Typography variant={"caption"} color={"textSecondary"}>
+                        {`${result.section}`}
+                      </Typography>
+                    </Box>
+                    <TagsList tags={result.tags} small />
+                  </Link>
+                </div>
+              )
+            })}
           </div>
         </Popper>
       </ClickAwayListener>

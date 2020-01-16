@@ -22,9 +22,6 @@ collections:
       - name: section
         label: Section
         widget: string
-      - name: slug
-        label: Slug
-        widget: string
       - name: color
         label: Color
         widget: string
@@ -36,7 +33,6 @@ collections:
     folder: model/blog
     create: true
     fields:
-      - { name: path, label: Path }
       - { name: date, label: Date, widget: datetime }
       - { name: title, label: Title }
       - { name: lead, label: Lead }

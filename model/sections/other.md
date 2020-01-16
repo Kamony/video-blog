@@ -1,6 +1,5 @@
 ---
 section: Other
-slug: /other
 color: '#EAC435'
 description: >-
   Lorem Ipsum is simply dummy text of the printing and typesetting industry.

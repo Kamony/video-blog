@@ -1,5 +1,4 @@
 ---
-path: /biology-post
 date: 2020-01-16T10:58:32.461Z
 title: Biology Post
 lead: >-

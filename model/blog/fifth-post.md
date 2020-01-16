@@ -1,5 +1,4 @@
 ---
-path: /fifth-post
 date: 2020-01-02T13:45:05.669Z
 title: Fifth Post
 lead: >-

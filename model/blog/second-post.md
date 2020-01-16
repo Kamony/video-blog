@@ -1,5 +1,4 @@
 ---
-path: /second-post
 date: 2019-12-23T15:46:25.258Z
 title: Second post
 lead: >-

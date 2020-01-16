@@ -53,11 +53,14 @@ export default function Template({ data }) {
         <Typography color="textPrimary">{frontmatter.title}</Typography>
       </Breadcrumbs>
       <Container className={classes.container}>
-        <Typography variant="h2" align={"center"}>
-          {frontmatter.title}
-        </Typography>
-        <Typography variant="subtitle1" align={"center"} gutterBottom>
+        <Typography variant="subtitle1" align={"right"}>
           {frontmatter.date.toLocaleString()}
+        </Typography>
+        <Typography variant="subtitle1" align={"right"}>
+          {frontmatter.section_}
+        </Typography>
+        <Typography variant="h2" align={"center"} gutterBottom>
+          {frontmatter.title}
         </Typography>
         {frontmatter.tags_ && (
           <TagsList
@@ -83,7 +86,6 @@ export const pageQuery = graphql`
       html
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
-        path
         title
         video
         tags_

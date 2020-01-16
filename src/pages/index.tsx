@@ -6,7 +6,6 @@ import MainFeaturedPost from "../components/MainFeaturedPost"
 import { About } from "../components/About"
 import Sidebar from "../components/SideBar"
 import { Facebook, Instagram, Twitter, YouTube } from "@material-ui/icons"
-import { createBlogSlug } from "../utils"
 
 const social = [
   { name: "Youtube", icon: YouTube, href: "https://youtube.com" },
@@ -23,29 +22,24 @@ const useStyles = makeStyles(theme => ({
 
 export default props => {
   const classes = useStyles()
+
+  const mainFeaturedPost = props.data.allMarkdownRemark.edges[0].node
   return (
     <>
       <main>
         {props.data.allMarkdownRemark.edges.length > 0 && (
           <MainFeaturedPost
             post={{
-              title:
-                props.data.allMarkdownRemark.edges[0].node.frontmatter.title,
+              title: mainFeaturedPost.frontmatter.title,
               date: new Date(
-                props.data.allMarkdownRemark.edges[0].node.frontmatter.date
+                mainFeaturedPost.frontmatter.date
               ).toLocaleDateString(),
-              tags:
-                props.data.allMarkdownRemark.edges[0].node.frontmatter.tags_,
-              description:
-                props.data.allMarkdownRemark.edges[0].node.frontmatter.lead,
+              tags: mainFeaturedPost.frontmatter.tags_,
+              description: mainFeaturedPost.frontmatter.lead,
               image: "https://source.unsplash.com/random",
               imageTitle: "main image description",
-              path: createBlogSlug(
-                props.data.allMarkdownRemark.edges[0].node.frontmatter.path,
-                props.data.allMarkdownRemark.edges[0].node.frontmatter.section_
-              ),
-              section:
-                props.data.allMarkdownRemark.edges[0].node.frontmatter.section_,
+              path: mainFeaturedPost.fields.slug,
+              section: mainFeaturedPost.frontmatter.section_,
             }}
           />
         )}
@@ -60,10 +54,7 @@ export default props => {
                 image: "https://source.unsplash.com/random",
                 imageTitle: "main image description",
                 section: post.node.frontmatter.section_,
-                path: createBlogSlug(
-                  post.node.frontmatter.path,
-                  post.node.frontmatter.section_
-                ),
+                path: post.node.fields.slug,
               }}
             />
           ))}
@@ -94,11 +85,13 @@ export const pageQuery = graphql`
           id
           frontmatter {
             title
-            path
             date
             lead
             tags_
             section_
+          }
+          fields {
+            slug
           }
         }
       }

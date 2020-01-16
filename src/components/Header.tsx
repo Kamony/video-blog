@@ -22,6 +22,8 @@ const sectionsQuery = graphql`
             frontmatter {
               section
               color
+            }
+            fields {
               slug
             }
           }
@@ -95,7 +97,7 @@ export default function Header(props: Props) {
         className={classes.toolbarSecondary}
       >
         {data.allFile.edges.map((edge, key) => (
-          <Link key={key} to={edge.node.childMarkdownRemark.frontmatter.slug}>
+          <Link key={key} to={edge.node.childMarkdownRemark.fields.slug}>
             <Typography
               color="textPrimary"
               noWrap

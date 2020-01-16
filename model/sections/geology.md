@@ -1,6 +1,5 @@
 ---
 section: Geology
-slug: /geology
 color: '#FB4D3D'
 description: >-
   Lorem Ipsum is simply dummy text of the printing and typesetting industry.

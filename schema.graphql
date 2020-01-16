@@ -289,6 +289,7 @@ type MarkdownRemark implements Node {
     children: [Node!]!
     excerpt(format: MarkdownExcerptFormats = PLAIN, pruneLength: Int = 140, truncate: Boolean = false): String
     excerptAst(pruneLength: Int = 140, truncate: Boolean = false): JSON
+    fields: MarkdownRemarkFields
     fileAbsolutePath: String
     frontmatter: MarkdownRemarkFrontmatter
     headings(depth: MarkdownHeadingLevels): [MarkdownHeading]
@@ -318,6 +319,10 @@ type MarkdownRemarkEdge {
     previous: MarkdownRemark
 }
 
+type MarkdownRemarkFields {
+    slug: String
+}
+
 type MarkdownRemarkFrontmatter {
     color: String
     date(
@@ -330,6 +335,7 @@ type MarkdownRemarkFrontmatter {
         #Configures the locale Moment.js will use to format the date.
         locale: String
     ): Date
+    description: String
     featured: Boolean
     lead: String
     path: String
@@ -375,9 +381,9 @@ type Query {
     allSiteSearchIndex(filter: SiteSearchIndexFilterInput, limit: Int, skip: Int, sort: SiteSearchIndexSortInput): SiteSearchIndexConnection!
     directory(absolutePath: StringQueryOperatorInput, accessTime: DateQueryOperatorInput, atime: DateQueryOperatorInput, atimeMs: FloatQueryOperatorInput, base: StringQueryOperatorInput, birthTime: DateQueryOperatorInput, birthtime: DateQueryOperatorInput, birthtimeMs: FloatQueryOperatorInput, blksize: IntQueryOperatorInput, blocks: IntQueryOperatorInput, changeTime: DateQueryOperatorInput, children: NodeFilterListInput, ctime: DateQueryOperatorInput, ctimeMs: FloatQueryOperatorInput, dev: IntQueryOperatorInput, dir: StringQueryOperatorInput, ext: StringQueryOperatorInput, extension: StringQueryOperatorInput, gid: IntQueryOperatorInput, id: StringQueryOperatorInput, ino: FloatQueryOperatorInput, internal: InternalFilterInput, mode: IntQueryOperatorInput, modifiedTime: DateQueryOperatorInput, mtime: DateQueryOperatorInput, mtimeMs: FloatQueryOperatorInput, name: StringQueryOperatorInput, nlink: IntQueryOperatorInput, parent: NodeFilterInput, prettySize: StringQueryOperatorInput, rdev: IntQueryOperatorInput, relativeDirectory: StringQueryOperatorInput, relativePath: StringQueryOperatorInput, root: StringQueryOperatorInput, size: IntQueryOperatorInput, sourceInstanceName: StringQueryOperatorInput, uid: IntQueryOperatorInput): Directory
     file(absolutePath: StringQueryOperatorInput, accessTime: DateQueryOperatorInput, atime: DateQueryOperatorInput, atimeMs: FloatQueryOperatorInput, base: StringQueryOperatorInput, birthTime: DateQueryOperatorInput, birthtime: DateQueryOperatorInput, birthtimeMs: FloatQueryOperatorInput, blksize: IntQueryOperatorInput, blocks: IntQueryOperatorInput, changeTime: DateQueryOperatorInput, childMarkdownRemark: MarkdownRemarkFilterInput, children: NodeFilterListInput, ctime: DateQueryOperatorInput, ctimeMs: FloatQueryOperatorInput, dev: IntQueryOperatorInput, dir: StringQueryOperatorInput, ext: StringQueryOperatorInput, extension: StringQueryOperatorInput, gid: IntQueryOperatorInput, id: StringQueryOperatorInput, ino: FloatQueryOperatorInput, internal: InternalFilterInput, mode: IntQueryOperatorInput, modifiedTime: DateQueryOperatorInput, mtime: DateQueryOperatorInput, mtimeMs: FloatQueryOperatorInput, name: StringQueryOperatorInput, nlink: IntQueryOperatorInput, parent: NodeFilterInput, prettySize: StringQueryOperatorInput, publicURL: StringQueryOperatorInput, rdev: IntQueryOperatorInput, relativeDirectory: StringQueryOperatorInput, relativePath: StringQueryOperatorInput, root: StringQueryOperatorInput, size: IntQueryOperatorInput, sourceInstanceName: StringQueryOperatorInput, uid: IntQueryOperatorInput): File
-    markdownRemark(children: NodeFilterListInput, excerpt: StringQueryOperatorInput, excerptAst: JSONQueryOperatorInput, fileAbsolutePath: StringQueryOperatorInput, frontmatter: MarkdownRemarkFrontmatterFilterInput, headings: MarkdownHeadingFilterListInput, html: StringQueryOperatorInput, htmlAst: JSONQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput, rawMarkdownBody: StringQueryOperatorInput, tableOfContents: StringQueryOperatorInput, timeToRead: IntQueryOperatorInput, wordCount: MarkdownWordCountFilterInput): MarkdownRemark
+    markdownRemark(children: NodeFilterListInput, excerpt: StringQueryOperatorInput, excerptAst: JSONQueryOperatorInput, fields: MarkdownRemarkFieldsFilterInput, fileAbsolutePath: StringQueryOperatorInput, frontmatter: MarkdownRemarkFrontmatterFilterInput, headings: MarkdownHeadingFilterListInput, html: StringQueryOperatorInput, htmlAst: JSONQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput, rawMarkdownBody: StringQueryOperatorInput, tableOfContents: StringQueryOperatorInput, timeToRead: IntQueryOperatorInput, wordCount: MarkdownWordCountFilterInput): MarkdownRemark
     site(buildTime: DateQueryOperatorInput, children: NodeFilterListInput, host: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput, pathPrefix: StringQueryOperatorInput, polyfill: BooleanQueryOperatorInput, port: IntQueryOperatorInput): Site
-    sitePage(children: NodeFilterListInput, component: StringQueryOperatorInput, componentChunkName: StringQueryOperatorInput, componentPath: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, internalComponentName: StringQueryOperatorInput, isCreatedByStatefulCreatePages: BooleanQueryOperatorInput, parent: NodeFilterInput, path: StringQueryOperatorInput, pluginCreator: SitePluginFilterInput, pluginCreatorId: StringQueryOperatorInput): SitePage
+    sitePage(children: NodeFilterListInput, component: StringQueryOperatorInput, componentChunkName: StringQueryOperatorInput, componentPath: StringQueryOperatorInput, context: SitePageContextFilterInput, id: StringQueryOperatorInput, internal: InternalFilterInput, internalComponentName: StringQueryOperatorInput, isCreatedByStatefulCreatePages: BooleanQueryOperatorInput, parent: NodeFilterInput, path: StringQueryOperatorInput, pluginCreator: SitePluginFilterInput, pluginCreatorId: StringQueryOperatorInput): SitePage
     sitePlugin(browserAPIs: StringQueryOperatorInput, children: NodeFilterListInput, id: StringQueryOperatorInput, internal: InternalFilterInput, name: StringQueryOperatorInput, nodeAPIs: StringQueryOperatorInput, packageJson: SitePluginPackageJsonFilterInput, parent: NodeFilterInput, pluginFilepath: StringQueryOperatorInput, pluginOptions: SitePluginPluginOptionsFilterInput, resolve: StringQueryOperatorInput, ssrAPIs: StringQueryOperatorInput, version: StringQueryOperatorInput): SitePlugin
     siteSearchIndex(children: NodeFilterListInput, id: StringQueryOperatorInput, index: SiteSearchIndex_IndexQueryOperatorInput, internal: InternalFilterInput, pages: StringQueryOperatorInput, parent: NodeFilterInput): SiteSearchIndex
 }
@@ -432,6 +438,7 @@ type SitePage implements Node {
     component: String
     componentChunkName: String
     componentPath: String
+    context: SitePageContext
     id: ID!
     internal: Internal!
     internalComponentName: String
@@ -449,6 +456,11 @@ type SitePageConnection {
     nodes: [SitePage!]!
     pageInfo: PageInfo!
     totalCount: Int!
+}
+
+type SitePageContext {
+    section: String
+    slug: String
 }
 
 type SitePageEdge {
@@ -725,9 +737,11 @@ enum FileFieldsEnum {
     childMarkdownRemark___children___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
     childMarkdownRemark___excerpt @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
     childMarkdownRemark___excerptAst @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMarkdownRemark___fields___slug @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
     childMarkdownRemark___fileAbsolutePath @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
     childMarkdownRemark___frontmatter___color
     childMarkdownRemark___frontmatter___date
+    childMarkdownRemark___frontmatter___description
     childMarkdownRemark___frontmatter___featured
     childMarkdownRemark___frontmatter___lead
     childMarkdownRemark___frontmatter___path
@@ -939,9 +953,11 @@ enum MarkdownRemarkFieldsEnum {
     children___parent___parent___id @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
     excerpt @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
     excerptAst @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    fields___slug @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
     fileAbsolutePath @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
     frontmatter___color
     frontmatter___date
+    frontmatter___description
     frontmatter___featured
     frontmatter___lead
     frontmatter___path
@@ -1148,6 +1164,8 @@ enum SitePageFieldsEnum {
     component
     componentChunkName
     componentPath
+    context___section
+    context___slug
     id
     internalComponentName
     internal___content
@@ -1639,10 +1657,15 @@ input MarkdownHeadingFilterListInput {
     elemMatch: MarkdownHeadingFilterInput
 }
 
+input MarkdownRemarkFieldsFilterInput {
+    slug: StringQueryOperatorInput
+}
+
 input MarkdownRemarkFilterInput {
     children: NodeFilterListInput
     excerpt: StringQueryOperatorInput
     excerptAst: JSONQueryOperatorInput
+    fields: MarkdownRemarkFieldsFilterInput
     fileAbsolutePath: StringQueryOperatorInput
     frontmatter: MarkdownRemarkFrontmatterFilterInput
     headings: MarkdownHeadingFilterListInput
@@ -1660,6 +1683,7 @@ input MarkdownRemarkFilterInput {
 input MarkdownRemarkFrontmatterFilterInput {
     color: StringQueryOperatorInput
     date: DateQueryOperatorInput
+    description: StringQueryOperatorInput
     featured: BooleanQueryOperatorInput
     lead: StringQueryOperatorInput
     path: StringQueryOperatorInput
@@ -1705,11 +1729,17 @@ input SiteFilterInput {
     port: IntQueryOperatorInput
 }
 
+input SitePageContextFilterInput {
+    section: StringQueryOperatorInput
+    slug: StringQueryOperatorInput
+}
+
 input SitePageFilterInput {
     children: NodeFilterListInput
     component: StringQueryOperatorInput
     componentChunkName: StringQueryOperatorInput
     componentPath: StringQueryOperatorInput
+    context: SitePageContextFilterInput
     id: StringQueryOperatorInput
     internal: InternalFilterInput
     internalComponentName: StringQueryOperatorInput

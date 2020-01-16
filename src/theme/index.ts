@@ -6,10 +6,10 @@ export const theme = (isDarkMode: boolean) => createMuiTheme( {
   palette: {
     type: isDarkMode ? 'dark' : 'light',
     primary: {
-      main: '#608bff',
+      main: '#0097a7',
     },
     secondary: {
-      main: '#28e9df',
+      main: '#ff4081',
     },
     error: {
       main: red.A400,

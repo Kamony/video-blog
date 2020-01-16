@@ -3,33 +3,24 @@ import { graphql } from "gatsby"
 import {
   Box,
   Breadcrumbs,
-  Container,
   Divider,
-  fade,
   Grid,
   makeStyles,
   Typography,
 } from "@material-ui/core"
-import { TagsList } from "../components/TagsList"
 import { Link } from "../components/Link"
-import { Video } from "../components/Video"
 import { Home } from "@material-ui/icons"
 import FeaturedPost from "../components/FeaturedPost"
-import { createBlogSlug } from "../utils"
 
 const useStyles = makeStyles(theme => ({
   container: {
     marginTop: theme.spacing(2),
-    paddingTop: theme.spacing(1),
+    paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(1),
-    borderTopWidth: 10,
+    borderTopWidth: 5,
     borderTopStyle: "solid",
-    borderTopLeftRadius: theme.spacing(1),
-    borderTopRightRadius: theme.spacing(1),
-    borderBottomWidth: 10,
+    borderBottomWidth: 5,
     borderBottomStyle: "solid",
-    borderBottomLeftRadius: theme.spacing(1),
-    borderBottomRightRadius: theme.spacing(1),
   },
   icon: {
     marginRight: theme.spacing(0.5),
@@ -71,7 +62,7 @@ export default function Template({ data }) {
       <Grid container spacing={4} justify="space-around">
         {data.allMarkdownRemark.edges.map(post => (
           <FeaturedPost
-            key={post.node.id}
+            key={post.node.frontmatter.title}
             post={{
               title: post.node.frontmatter.title,
               date: new Date(post.node.frontmatter.date).toLocaleDateString(),
@@ -79,10 +70,7 @@ export default function Template({ data }) {
               image: "https://source.unsplash.com/random",
               imageTitle: "main image description",
               section: post.node.frontmatter.section_,
-              path: createBlogSlug(
-                post.node.frontmatter.path,
-                post.node.frontmatter.section_
-              ),
+              path: post.node.fields.slug,
             }}
           />
         ))}
@@ -95,7 +83,7 @@ export default function Template({ data }) {
           <Divider />
           <Box mt={1}>
             <Typography paragraph gutterBottom>
-              {/*{frontmatter.description}*/}
+              {frontmatter.description}
             </Typography>
           </Box>
         </Grid>
@@ -113,10 +101,12 @@ export const pageQuery = graphql`
             featured
             date
             lead
-            path
             title
             video
             section_
+          }
+          fields {
+            slug
           }
         }
       }
@@ -125,7 +115,7 @@ export const pageQuery = graphql`
       frontmatter {
         section
         color
-        #        description
+        description
       }
     }
   }

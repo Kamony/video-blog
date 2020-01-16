@@ -1,5 +1,4 @@
 ---
-path: /forth-post
 date: 2020-01-02T13:45:05.669Z
 title: Forth Post
 lead: >-

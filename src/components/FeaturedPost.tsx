@@ -72,10 +72,12 @@ export default function FeaturedPost(props: Props) {
                   {post.date}
                 </Typography>
                 <Typography variant="subtitle1" paragraph>
-                  {post.description}
+                  {post.description.length > 100
+                    ? post.description.substr(0, 97) + "..."
+                    : post.description}
                 </Typography>
                 <Typography variant="subtitle1" color="primary">
-                  Continue reading...
+                  Continue reading
                 </Typography>
               </CardContent>
             </div>

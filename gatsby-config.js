@@ -27,14 +27,15 @@ module.exports = {
     {
       resolve: `@gatsby-contrib/gatsby-plugin-elasticlunr-search`,
       options: {
-        fields: ['title', 'date', 'tags'],
+        fields: ['title', 'date', 'tags', 'section'],
         resolvers: {
           // For any node of type MarkdownRemark, list how to resolve the fields` values
           MarkdownRemark: {
             title: node => node.frontmatter.title,
             date: node => node.frontmatter.date,
-            path: node => node.frontmatter.path,
-            tags: node => node.frontmatter.tags_,
+            path: node => node.fields.slug,
+            section: node => node.frontmatter['section,'],
+            tags: node => node.frontmatter['tags,']
           },
         },
       },
