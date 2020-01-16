@@ -1,6 +1,6 @@
 ---
 section: Biology
 slug: /biology
-color: '#8ee8a3'
+color: '#03CEA4'
 ---
 
