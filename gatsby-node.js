@@ -12,7 +12,9 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
                       childMarkdownRemark {
                           frontmatter {
                               section_
-                              path
+                          }
+                          fields {
+                            slug
                           }
                       }
                   }
@@ -27,9 +29,9 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   }
   result.data.allFile.edges.forEach(({ node }) => {
       createPage({
-        path: `${node.childMarkdownRemark.frontmatter.section_}${node.childMarkdownRemark.frontmatter.path}`.toLowerCase(),
+        path: node.childMarkdownRemark.fields.slug,
         component: blogPostTemplate,
-        context: {slug: node.childMarkdownRemark.frontmatter.path},
+        context: {slug: node.childMarkdownRemark.fields.slug},
       })
   })
   // sections
@@ -43,7 +45,9 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
                       childMarkdownRemark {
                           frontmatter {
                               section
-                              slug
+                          }
+                          fields {
+                            slug
                           }
                       }
                   }
@@ -58,7 +62,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   }
   sectionResult.data.allFile.edges.forEach(({ node }) => {
       createPage({
-        path: node.childMarkdownRemark.frontmatter.slug,
+        path: node.childMarkdownRemark.fields.slug,
         component: sectionTemplate,
         context: { section: node.childMarkdownRemark.frontmatter.section},
       })
@@ -81,46 +85,3 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     })
   }
 }
-
-//
-// exports.sourceNodes = ({ boundActionCreators, getNodes, getNode }) => {
-//   const { createNodeField } = boundActionCreators;
-//
-//   const postsOfAuthors = {};
-//   // iterate thorugh all markdown nodes to link books to author
-//   // and build author index
-//   const markdownNodes = getNodes()
-//     .filter(node => node.internal.type === "MarkdownRemark")
-//     .forEach(node => {
-//       if (node.frontmatter.section_) {
-//         const sectionNode = getNodes().find(
-//           node2 =>
-//             node2.internal.type === "MarkdownRemark" &&
-//             node2.frontmatter.section === node.frontmatter.section_
-//         );
-//
-//         if (sectionNode) {
-//           createNodeField({
-//             node,
-//             name: "section",
-//             value: sectionNode.id,
-//           });
-//
-//           // if it's first time for this author init empty array for his posts
-//           if (!(sectionNode.id in postsOfAuthors)) {
-//             postsOfAuthors[sectionNode.id] = [];
-//           }
-//           // add book to this section
-//           postsOfAuthors[sectionNode.id].push(node.id);
-//         }
-//       }
-//     });
-//
-//   Object.entries(postsOfAuthors).forEach(([sectionNodeId, postIds]) => {
-//     createNodeField({
-//       node: getNode(sectionNodeId),
-//       name: "posts",
-//       value: postIds,
-//     });
-//   });
-// };
