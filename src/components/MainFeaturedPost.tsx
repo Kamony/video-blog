@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
   },
   mainFeaturedPostContent: {
     position: "relative",
-    padding: theme.spacing(3),
+    padding: theme.spacing(4),
     [theme.breakpoints.up("md")]: {
       padding: theme.spacing(6),
       paddingRight: 0,
@@ -36,6 +36,22 @@ const useStyles = makeStyles(theme => ({
   },
   tags: {
     paddingBottom: theme.spacing(2),
+  },
+  section: {
+    position: "absolute",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: theme.spacing(2),
+    opacity: 0.8,
+    backgroundColor: "green",
+    height: "100%",
+    "&>div": {
+      transform: "rotate(-90deg)",
+    },
+    [theme.breakpoints.up("md")]: {
+      width: theme.spacing(4),
+    },
   },
 }))
 
@@ -48,6 +64,7 @@ type Props = {
     imageTitle: string
     tags?: string[]
     path: string
+    section: string
   }
 }
 
@@ -62,7 +79,15 @@ export default function MainFeaturedPost(props: Props) {
     >
       <div className={classes.overlay} />
       <Grid container>
-        <Grid item md={6}>
+        <Grid item md={6} direction={"row"}>
+          <div
+            className={classes.section}
+            style={{ backgroundColor: post.sectionColor }}
+          >
+            <div>
+              <Typography variant="overline">{post.section}</Typography>
+            </div>
+          </div>
           <div className={classes.mainFeaturedPostContent}>
             <Box px={0.5}>
               <Typography variant="subtitle1">{post.date}</Typography>

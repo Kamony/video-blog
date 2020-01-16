@@ -6,6 +6,7 @@ import MainFeaturedPost from "../components/MainFeaturedPost"
 import { About } from "../components/About"
 import Sidebar from "../components/SideBar"
 import { Facebook, Instagram, Twitter, YouTube } from "@material-ui/icons"
+import { createBlogSlug } from "../utils"
 
 const social = [
   { name: "Youtube", icon: YouTube, href: "https://youtube.com" },
@@ -40,7 +41,12 @@ export default props => {
                 props.data.allMarkdownRemark.edges[0].node.frontmatter.lead,
               image: "https://source.unsplash.com/random",
               imageTitle: "main image description",
-              path: props.data.allMarkdownRemark.edges[0].node.frontmatter.path,
+              path: createBlogSlug(
+                props.data.allMarkdownRemark.edges[0].node.frontmatter.path,
+                props.data.allMarkdownRemark.edges[0].node.frontmatter.section_
+              ),
+              section:
+                props.data.allMarkdownRemark.edges[0].node.frontmatter.section_,
             }}
           />
         )}
@@ -54,7 +60,11 @@ export default props => {
                 description: post.node.frontmatter.lead,
                 image: "https://source.unsplash.com/random",
                 imageTitle: "main image description",
-                path: post.node.frontmatter.path,
+                section: post.node.frontmatter.section_,
+                path: createBlogSlug(
+                  post.node.frontmatter.path,
+                  post.node.frontmatter.section_
+                ),
               }}
             />
           ))}
@@ -89,6 +99,7 @@ export const pageQuery = graphql`
             date
             lead
             tags_
+            section_
           }
         }
       }

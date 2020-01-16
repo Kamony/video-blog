@@ -27,6 +27,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function Template({ data }) {
+  console.log(data)
   const { markdownRemark } = data
   const { frontmatter, html } = markdownRemark
   const classes = useStyles()
@@ -71,8 +72,8 @@ export default function Template({ data }) {
 }
 
 export const pageQuery = graphql`
-  query($path: String!) {
-    markdownRemark(frontmatter: { path: { eq: $path } }) {
+  query($slug: String!) {
+    markdownRemark(frontmatter: { path: { eq: $slug } }) {
       html
       frontmatter {
         date(formatString: "MMMM DD, YYYY")

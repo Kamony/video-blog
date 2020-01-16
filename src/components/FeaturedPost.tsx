@@ -9,17 +9,36 @@ import CardMedia from "@material-ui/core/CardMedia"
 import Hidden from "@material-ui/core/Hidden"
 import { Link } from "./Link"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   card: {
     display: "flex",
   },
   cardDetails: {
     flex: 1,
+    paddingLeft: theme.spacing(3),
+    [theme.breakpoints.up("md")]: {
+      paddingLeft: theme.spacing(4),
+    },
   },
   cardMedia: {
     width: 160,
   },
-})
+  section: {
+    position: "absolute",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: theme.spacing(2),
+    backgroundColor: "green",
+    height: "100%",
+    "&>div": {
+      transform: "rotate(-90deg)",
+    },
+    [theme.breakpoints.up("md")]: {
+      width: theme.spacing(3),
+    },
+  },
+}))
 
 type Props = {
   post: {
@@ -29,6 +48,7 @@ type Props = {
     image: string
     imageTitle: string
     path: string
+    section: string
   }
 }
 
@@ -41,6 +61,11 @@ export default function FeaturedPost(props: Props) {
       <Link to={props.post.path}>
         <CardActionArea>
           <Card className={classes.card}>
+            <div className={classes.section}>
+              <div>
+                <Typography variant="overline">{post.section}</Typography>
+              </div>
+            </div>
             <div className={classes.cardDetails}>
               <CardContent>
                 <Typography component="h2" variant="h5">

@@ -319,6 +319,7 @@ type MarkdownRemarkEdge {
 }
 
 type MarkdownRemarkFrontmatter {
+    color: String
     date(
         #Returns the difference between this date and the current time. Defaults to \"milliseconds\" but you can also pass in as the measurement \"years\", \"months\", \"weeks\", \"days\", \"hours\", \"minutes\", and \"seconds\".
         difference: String,
@@ -332,6 +333,9 @@ type MarkdownRemarkFrontmatter {
     featured: Boolean
     lead: String
     path: String
+    section: String
+    section_: String
+    slug: String
     tags_: [String]
     title: String
     video: String
@@ -722,10 +726,14 @@ enum FileFieldsEnum {
     childMarkdownRemark___excerpt @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
     childMarkdownRemark___excerptAst @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
     childMarkdownRemark___fileAbsolutePath @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    childMarkdownRemark___frontmatter___color
     childMarkdownRemark___frontmatter___date
     childMarkdownRemark___frontmatter___featured
     childMarkdownRemark___frontmatter___lead
     childMarkdownRemark___frontmatter___path
+    childMarkdownRemark___frontmatter___section
+    childMarkdownRemark___frontmatter___section_
+    childMarkdownRemark___frontmatter___slug
     childMarkdownRemark___frontmatter___tags_
     childMarkdownRemark___frontmatter___title
     childMarkdownRemark___frontmatter___video
@@ -932,10 +940,14 @@ enum MarkdownRemarkFieldsEnum {
     excerpt @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
     excerptAst @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
     fileAbsolutePath @deprecated(reason : "Sorting on fields that need arguments to resolve is deprecated.")
+    frontmatter___color
     frontmatter___date
     frontmatter___featured
     frontmatter___lead
     frontmatter___path
+    frontmatter___section
+    frontmatter___section_
+    frontmatter___slug
     frontmatter___tags_
     frontmatter___title
     frontmatter___video
@@ -1646,10 +1658,14 @@ input MarkdownRemarkFilterInput {
 }
 
 input MarkdownRemarkFrontmatterFilterInput {
+    color: StringQueryOperatorInput
     date: DateQueryOperatorInput
     featured: BooleanQueryOperatorInput
     lead: StringQueryOperatorInput
     path: StringQueryOperatorInput
+    section: StringQueryOperatorInput
+    section_: StringQueryOperatorInput
+    slug: StringQueryOperatorInput
     tags_: StringQueryOperatorInput
     title: StringQueryOperatorInput
     video: StringQueryOperatorInput

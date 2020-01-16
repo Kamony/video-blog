@@ -3,14 +3,32 @@ import { makeStyles } from "@material-ui/core/styles"
 import Toolbar from "@material-ui/core/Toolbar"
 import IconButton from "@material-ui/core/IconButton"
 import {
-  Brightness7 as LightMode,
   Brightness2 as DarkMode,
+  Brightness7 as LightMode,
 } from "@material-ui/icons"
 import Typography from "@material-ui/core/Typography"
-import Link from "@material-ui/core/Link"
 import { Paper } from "@material-ui/core"
 import { Search } from "./Search"
 import { graphql, useStaticQuery } from "gatsby"
+import { Link } from "./Link"
+
+const sectionsQuery = graphql`
+  query MyQuery {
+    allFile(filter: { sourceInstanceName: { eq: "markdown-sections" } }) {
+      edges {
+        node {
+          dir
+          childMarkdownRemark {
+            frontmatter {
+              section
+              slug
+            }
+          }
+        }
+      }
+    }
+  }
+`
 
 const useStyles = makeStyles(theme => ({
   toolbar: {
@@ -45,17 +63,8 @@ type Props = {
 export default function Header(props: Props) {
   const classes = useStyles()
   const { title } = props
-  // const data = useStaticQuery(graphql`
-  //   query HeaderQuery {
-  //       allMarkdownRemark {
-  //           edges {
-  //               node {
-  //
-  //               }
-  //           }
-  //       }
-  //   }
-  // `)
+  const data = useStaticQuery(sectionsQuery)
+
   return (
     <Paper
       variant="outlined"
@@ -84,16 +93,16 @@ export default function Header(props: Props) {
         variant="dense"
         className={classes.toolbarSecondary}
       >
-        {sections.map(section => (
-          <Link
-            color="inherit"
-            noWrap
-            key={section.title}
-            variant="body2"
-            href={section.url}
-            className={classes.toolbarLink}
-          >
-            {section.title}
+        {data.allFile.edges.map((edge, key) => (
+          <Link key={key} to={edge.node.childMarkdownRemark.frontmatter.slug}>
+            <Typography
+              color="textPrimary"
+              noWrap
+              variant="body2"
+              className={classes.toolbarLink}
+            >
+              {edge.node.childMarkdownRemark.frontmatter.section}
+            </Typography>
           </Link>
         ))}
       </Toolbar>
