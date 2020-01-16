@@ -8,6 +8,7 @@ import CardContent from "@material-ui/core/CardContent"
 import CardMedia from "@material-ui/core/CardMedia"
 import Hidden from "@material-ui/core/Hidden"
 import { Link } from "./Link"
+import { SectionLabel } from "./SectionLabel"
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -61,11 +62,7 @@ export default function FeaturedPost(props: Props) {
       <Link to={props.post.path}>
         <CardActionArea>
           <Card className={classes.card}>
-            <div className={classes.section}>
-              <div>
-                <Typography variant="overline">{post.section}</Typography>
-              </div>
-            </div>
+            <SectionLabel section={post.section} />
             <div className={classes.cardDetails}>
               <CardContent>
                 <Typography component="h2" variant="h5">

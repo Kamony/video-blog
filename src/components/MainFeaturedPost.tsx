@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid"
 import { Box, Button } from "@material-ui/core"
 import { Link } from "./Link"
 import { TagsList } from "./TagsList"
+import { SectionLabel } from "./SectionLabel"
 
 const useStyles = makeStyles(theme => ({
   mainFeaturedPost: {
@@ -80,14 +81,7 @@ export default function MainFeaturedPost(props: Props) {
       <div className={classes.overlay} />
       <Grid container>
         <Grid item md={6} direction={"row"}>
-          <div
-            className={classes.section}
-            style={{ backgroundColor: post.sectionColor }}
-          >
-            <div>
-              <Typography variant="overline">{post.section}</Typography>
-            </div>
-          </div>
+          <SectionLabel section={post.section} />
           <div className={classes.mainFeaturedPostContent}>
             <Box px={0.5}>
               <Typography variant="subtitle1">{post.date}</Typography>

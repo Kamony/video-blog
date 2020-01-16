@@ -23,7 +23,6 @@ const useStyles = makeStyles(theme => ({
 
 export default props => {
   const classes = useStyles()
-  console.log(props)
   return (
     <>
       <main>
@@ -100,6 +99,18 @@ export const pageQuery = graphql`
             lead
             tags_
             section_
+          }
+        }
+      }
+    }
+    allFile(filter: { sourceInstanceName: { eq: "markdown-sections" } }) {
+      edges {
+        node {
+          childMarkdownRemark {
+            frontmatter {
+              section
+              color
+            }
           }
         }
       }

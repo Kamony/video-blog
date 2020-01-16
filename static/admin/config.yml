@@ -28,7 +28,9 @@ collections:
       - name: color
         label: Color
         widget: string
-        required: false
+      - name: description
+        label: Description
+        widget: string
   - name: blog
     label: Blog
     folder: model/blog

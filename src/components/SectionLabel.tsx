@@ -4,12 +4,16 @@ import * as React from "react"
 import { graphql, useStaticQuery } from "gatsby"
 
 const sectionQuery = graphql`
-  query SectionQuery {
-    file(childMarkdownRemark: { frontmatter: { section: { eq: "Biology" } } }) {
-      childMarkdownRemark {
-        frontmatter {
-          section
-          color
+  query SectionsQuery {
+    allFile(filter: { sourceInstanceName: { eq: "markdown-sections" } }) {
+      edges {
+        node {
+          childMarkdownRemark {
+            frontmatter {
+              section
+              color
+            }
+          }
         }
       }
     }
@@ -35,16 +39,29 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-type Props = {}
-const SectionLabel = (props: Props) => {
+type Props = { section: string }
+
+export const SectionLabel = (props: Props) => {
   const data = useStaticQuery(sectionQuery)
+  const classes = useStyles()
+  const currentSection = data.allFile.edges.find(
+    edge => edge.node.childMarkdownRemark.frontmatter.section === props.section
+  )
+
+  if (!currentSection) {
+    return null
+  }
+
   return (
     <div
       className={classes.section}
-      style={{ backgroundColor: post.sectionColor }}
+      style={{
+        backgroundColor:
+          currentSection.node.childMarkdownRemark.frontmatter.color,
+      }}
     >
       <div>
-        <Typography variant="overline">{post.section}</Typography>
+        <Typography variant="overline">{props.section}</Typography>
       </div>
     </div>
   )

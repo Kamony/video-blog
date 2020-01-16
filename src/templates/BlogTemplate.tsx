@@ -35,7 +35,7 @@ export default function Template({ data }) {
   return (
     <main className={classes.container}>
       <Breadcrumbs
-        maxItems={2}
+        maxItems={3}
         aria-label="breadcrumb"
         separator={">"}
         style={{ alignItems: "baseline" }}
@@ -43,6 +43,12 @@ export default function Template({ data }) {
         <Link to={"/"} style={{ color: "inherit", display: "flex" }}>
           <Home color={"inherit"} className={classes.icon} />
           Home
+        </Link>
+        <Link
+          to={`/${frontmatter.section_}`.toLowerCase()}
+          style={{ color: "inherit", display: "flex" }}
+        >
+          {frontmatter.section_}
         </Link>
         <Typography color="textPrimary">{frontmatter.title}</Typography>
       </Breadcrumbs>
@@ -81,6 +87,7 @@ export const pageQuery = graphql`
         title
         video
         tags_
+        section_
       }
     }
   }

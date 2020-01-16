@@ -21,6 +21,7 @@ const sectionsQuery = graphql`
           childMarkdownRemark {
             frontmatter {
               section
+              color
               slug
             }
           }
